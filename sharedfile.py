@@ -5,13 +5,13 @@ from collections import Counter
 #read in file from sys
 
 #for now hard code the file names
-index=open('/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/test.index','r')
-sam=open('/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/test.sam','r')
-merged=open('/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/test.merged','wt')
-shared=open('/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/test.shared','wt')
+index=open('/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.index','r')
+sam=open('/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.sam','r')
+merged_temp=open('/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.merged','wt')
 
 
 #make dictionary of cluster as key and sequence as value from index file
+
 c = {} # dictionary key is cluster and sequence is value
 
 for row in index:
@@ -25,25 +25,48 @@ for row in index:
 index.close()
 
 for f in c.keys():
-	print(f, c[f], end="\n", file=merged)
-	
+	print(f, ','.join(c[f]), sep="\t", end="\n", file=merged_temp)
 
+merged_temp.close()
+
+#make dictionary of sequence as key and read as value from sam file
+
+d = {} # dictionary key is sequence and read is value
+
+for row in sam:
+	row=row.strip().split('\t')
+	sequence = row[1]
+	read= row[0]
+	if sequence in d.keys():
+		d[sequence].append(read)
+	else:
+		d[sequence] = [read]
 sam.close()
 
-#switchline=[]
-#for line in opf:
-	#cnt = Counter()
-#	line = line.strip().split('\t')
-#	print(line[0], '\t', end='', file=temp)
-#	contigs = line[1].strip().split(',')
-#	for column in range(0,len(contigs)):
-#		switchcontig = contigs[column] #contig to switch
-#		if switchcontig in c.keys():
-#			switchpath = c[switchcontig]
-#		else:
-#			switchpath = ['unknown']  #probably because don't have whole blast yet
-#		print('\t'.join(switchpath), end="\t", file=temp)  
-#	print("", end="\n", file=temp)        
+'''
+for f in d.keys():
+	print(f, ','.join(d[f]), sep="\t", end="\n", file=shared)
+sam.close()
+'''
 
-merged.close()
+cluster_seq=open('/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.merged','r')
+shared=open('/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.shared','wt')
+
+
+switchline=[]
+for line in cluster_seq:
+	#cnt = Counter()
+	line = line.strip().split('\t')
+	print(line[0], '\t', end='', file=shared)
+	seqs = line[1].strip().split(',')
+	for column in range(0,len(seqs)):
+		switchseq = seqs[column] #contig to switch
+		if switchseq in d.keys():
+			switchpath = d[switchseq]
+		#else:
+		#	switchpath = ['unknown']  #probably because don't have whole blast yet
+		print('\t'.join(switchpath), end="\t", file=shared)  
+	print("", end="\n", file=shared)        
+
+cluster_seq.close()
 shared.close()
