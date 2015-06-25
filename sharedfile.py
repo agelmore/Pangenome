@@ -55,7 +55,6 @@ shared=open('/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/tes
 
 switchline=[]
 for line in cluster_seq:
-	#cnt = Counter()
 	line = line.strip().split('\t')
 	print(line[0], '\t', end='', file=shared)
 	seqs = line[1].strip().split(',')
@@ -63,10 +62,26 @@ for line in cluster_seq:
 		switchseq = seqs[column] #contig to switch
 		if switchseq in d.keys():
 			switchpath = d[switchseq]
-		#else:
-		#	switchpath = ['unknown']  #probably because don't have whole blast yet
 		print('\t'.join(switchpath), end="\t", file=shared)  
 	print("", end="\n", file=shared)        
 
 cluster_seq.close()
 shared.close()
+
+#Count the reads per cluster to make summary file
+
+cluster_read=open('/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.shared','r')
+summary=open('/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.summary','wt')
+
+
+for line in cluster_read:
+	line = line.strip().split('\t')
+	count = len(line) - 1
+	print(line[0], count, end='\n', file=summary)
+	
+summary.close()
+cluster_read.close()
+
+
+
+
