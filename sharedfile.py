@@ -5,9 +5,18 @@ from collections import Counter
 #read in file from sys
 
 #for now hard code the file names
-index=open('/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.index','r')
-sam=open('/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.sam','r')
-merged_temp=open('/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.merged','wt')
+index_file='/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.index'
+sam_file='/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.sam'
+merged_temp_file='/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.merged'
+cluster_seq_file='/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.merged'
+shared_file='/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.shared'
+cluster_file='/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.shared'
+summary_file='/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.summary'
+
+
+index=open(index_file,'r')
+sam=open(sam_file,'r')
+merged_temp=open(merged_temp_file,'wt')
 
 
 #make dictionary of cluster as key and sequence as value from index file
@@ -49,8 +58,8 @@ for f in d.keys():
 sam.close()
 '''
 
-cluster_seq=open('/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.merged','r')
-shared=open('/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.shared','wt')
+cluster_seq=open(cluster_seq_file,'r')
+shared=open(shared_file,'wt')
 
 
 switchline=[]
@@ -70,8 +79,8 @@ shared.close()
 
 #Count the reads per cluster to make summary file
 
-cluster_read=open('/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.shared','r')
-summary=open('/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.summary','wt')
+cluster_read=open(cluster_file,'r')
+summary=open(summary_file,'wt')
 
 
 for line in cluster_read:
