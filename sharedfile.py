@@ -2,9 +2,16 @@
 import sys
 from collections import Counter
 
+
+'''
+#Script to count number of reads per pangenome cluster. Reads are mapped 
+to sequences using BWA. Sequences are clustered using get_homologues. Final outfile is called summary_file and includes the total number of reads in each cluster from that sample.
+
+'''
+
 #read in file from sys
 
-#for now hard code the file names
+#for now hard code the file names, add sys_args later
 index_file='/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.index'
 sam_file='/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.sam'
 merged_temp_file='/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.merged'
