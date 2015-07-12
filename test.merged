@@ -1,5 +1,5 @@
-cluster3	seq9
-cluster2	seq6,seq7,seq8
-cluster1	seq1,seq2,seq3,seq4,seq5,seq5
 cluster5	seq16,seq17,seq18,seq19,seq20,seq21,seq22,seq23
 cluster4	seq10,seq11,seq12,seq13,seq14,seq15
+cluster1	seq1,seq2,seq3,seq4,seq5,seq5
+cluster3	seq9
+cluster2	seq6,seq7,seq8

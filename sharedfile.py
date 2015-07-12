@@ -1,5 +1,6 @@
 #!/usr/bin/python3.3
 import sys
+import argparse
 from collections import Counter
 
 
@@ -9,9 +10,28 @@ to sequences using BWA. Sequences are clustered using get_homologues. Final outf
 
 '''
 
-#read in file from sys
+parser = argparse.ArgumentParser(description='Count number of reads per pangenome cluster.')
+#parser = MyParser()
+parser.add_argument('sam_file', nargs='+', help='index file with reads in first column and reference sequences they map to in the second')
+parser.add_argument('index_file', nargs='+', help='index file with sequences in first column and clusters in the second')
+parser.add_argument('outfile', nargs='+', help='file with read counts per cluster')
 
-#for now hard code the file names, add sys_args later
+args = parser.parse_args()
+
+
+#read in file from sys
+index_file=args.index_file
+sam_file=args.sam_file
+merged_temp_file='./temp.merged'
+cluster_seq_file='./temp.merged'
+shared_file='./temp.shared'
+cluster_file='./temp.shared'
+summary_file=args.outfile
+
+
+
+'''
+#for now hard code the file names
 index_file='/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.index'
 sam_file='/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.sam'
 merged_temp_file='/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.merged'
@@ -19,10 +39,10 @@ cluster_seq_file='/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenom
 shared_file='/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.shared'
 cluster_file='/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.shared'
 summary_file='/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.summary'
+'''
 
-
-index=open(index_file,'r')
-sam=open(sam_file,'r')
+index=open(args.index_file,'r')
+sam=open(args.sam_file,'r')
 merged_temp=open(merged_temp_file,'wt')
 
 
