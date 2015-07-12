@@ -12,9 +12,9 @@ to sequences using BWA. Sequences are clustered using get_homologues. Final outf
 
 parser = argparse.ArgumentParser(description='Count number of reads per pangenome cluster.')
 #parser = MyParser()
-parser.add_argument('sam_file', nargs='+', help='index file with reads in first column and reference sequences they map to in the second')
-parser.add_argument('index_file', nargs='+', help='index file with sequences in first column and clusters in the second')
-parser.add_argument('outfile', nargs='+', help='file with read counts per cluster')
+parser.add_argument('sam_file', nargs='+', help='index file with reads in first column and reference sequences they map to in the second', type=file)
+parser.add_argument('index_file', nargs='+', help='index file with sequences in first column and clusters in the second', type=file)
+parser.add_argument('outfile', nargs='+', help='file with read counts per cluster', type=file)
 
 args = parser.parse_args()
 
