@@ -1,8 +1,8 @@
-#!/usr/bin/python3.3
+#!/usr/bin/python2.7
 import sys
 import argparse
 from collections import Counter
-
+from __future__ import print_function
 
 '''
 #Script to count number of reads per pangenome cluster. Reads are mapped 
