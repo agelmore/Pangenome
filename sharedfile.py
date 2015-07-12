@@ -107,7 +107,7 @@ shared.close()
 #Count the reads per cluster to make summary file
 
 cluster_read=open(cluster_file,'r')
-summary=open(summary_file,'wt')
+summary=open(args.outfile,'wt')
 
 
 for line in cluster_read:
