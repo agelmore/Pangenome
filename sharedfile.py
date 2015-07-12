@@ -7,6 +7,7 @@ from collections import Counter
 #Script to count number of reads per pangenome cluster. Reads are mapped 
 to sequences using BWA. Sequences are clustered using get_homologues. Final outfile is called summary_file and includes the total number of reads in each cluster from that sample.
 
+TEst
 '''
 
 #read in file from sys
