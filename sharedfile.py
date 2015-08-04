@@ -49,7 +49,7 @@ merged_temp=open(merged_temp_file,'wt')
 #make dictionary of cluster as key and sequence as value from index file
 
 c = {} # dictionary key is cluster and sequence is value
-index=open(args.index_file)
+
 for row in index:
 	row=row.strip().split('\t')
 	cluster = row[1]
