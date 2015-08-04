@@ -40,8 +40,8 @@ cluster_file='/mnt/EXT/Schloss-data/amanda/Fuso/pangenome/bwa/t0/temp/test.share
 summary_file='/mnt/EXT/Schloss-data/amanda/Fuso/pangenome/bwa/t0/all.t0.SRS013502.mapped.out'
 
 
-#index=open(args.index_file,'r')
-#sam=open(args.sam_file,'r')
+index=open(index_file,'r')
+sam=open(sam_file,'r')
 
 merged_temp=open(merged_temp_file,'wt')
 
