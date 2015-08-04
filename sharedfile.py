@@ -9,7 +9,7 @@ from collections import Counter
 to sequences using BWA. Sequences are clustered using get_homologues. Final outfile is called summary_file and includes the total number of reads in each cluster from that sample.
 
 '''
-
+'''
 parser = argparse.ArgumentParser(description='Count number of reads per pangenome cluster.')
 parser = MyParser()
 parser.add_argument('sam_file', nargs='+', help='index file with reads in first column and reference sequences they map to in the second', type=file)
@@ -28,21 +28,21 @@ shared_file='./temp.shared'
 cluster_file='./temp.shared'
 #summary_file=args.outfile
 
-
-
 '''
+
+
 #for now hard code the file names
-index_file='/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.index'
-sam_file='/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.sam'
-merged_temp_file='/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.merged'
-cluster_seq_file='/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.merged'
-shared_file='/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.shared'
-cluster_file='/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.shared'
-summary_file='/Users/Amanda/Documents/Schloss/Fuso/Pangenome/shared/Pangenome/test.summary'
-'''
+index_file='/mnt/EXT/Schloss-data/amanda/Fuso/pangenome/bwa/t0/t0.index'
+sam_file='/mnt/EXT/Schloss-data/amanda/Fuso/pangenome/bwa/t0/all.t0.SRS013502.mapped.index'
+merged_temp_file='/mnt/EXT/Schloss-data/amanda/Fuso/pangenome/bwa/t0/temp/test.merged'
+cluster_seq_file='/mnt/EXT/Schloss-data/amanda/Fuso/pangenome/bwa/t0/temp/test.merged'
+shared_file='/mnt/EXT/Schloss-data/amanda/Fuso/pangenome/bwa/t0/temp/test.shared'
+cluster_file='/mnt/EXT/Schloss-data/amanda/Fuso/pangenome/bwa/t0/temp/test.shared'
+summary_file='/mnt/EXT/Schloss-data/amanda/Fuso/pangenome/bwa/t0/all.t0.SRS013502.mapped.out'
 
-index=open(args.index_file,'r')
-sam=open(args.sam_file,'r')
+
+index=open(index_file,'r')
+sam=open(sam_file,'r')
 merged_temp=open(merged_temp_file,'wt')
 
 
@@ -108,16 +108,16 @@ shared.close()
 
 cluster_read=open(cluster_file,'r')
 
-#summary=open(args.outfile,'wt')
+summary=open(summary_file,'wt')
 
 
 
 for line in cluster_read:
 	line = line.strip().split('\t')
 	count = len(line) - 1
-	print(line[0], count, end='\n', file=args.outfile)
+	print(line[0], count, end='\n', file=summary)
 	
-#summary.close()
+summary_file.close()
 cluster_read.close()
 
 
