@@ -27,6 +27,8 @@ shared_file='./temp.shared'
 cluster_file='./temp.shared'
 #summary_file=args.outfile
 
+
+temp.merged has the cluster with a list of sequences in that cluster. temp.shared has the cluster with the reads that mapped to those sequences switched in. 
 '''
 
 
