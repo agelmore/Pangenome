@@ -11,17 +11,16 @@ to sequences using BWA. Sequences are clustered using get_homologues. Final outf
 '''
 '''
 parser = argparse.ArgumentParser(description='Count number of reads per pangenome cluster.')
-parser = MyParser()
-parser.add_argument('sam_file', nargs='+', help='index file with reads in first column and reference sequences they map to in the second', type=file)
-parser.add_argument('index_file', nargs='+', help='index file with sequences in first column and clusters in the second', type=file)
+parser.add_argument('sam_file', nargs='+', help='index file with reads in first column and reference sequences they map to in the second', type=argparse.FileType('r'))
+parser.add_argument('index_file', nargs='+', help='index file with sequences in first column and clusters in the second', type=argparse.FileType('r'))
 parser.add_argument('outfile', nargs='+', help='file with read counts per cluster',  type=argparse.FileType('w'))
 
 args = parser.parse_args()
 
 
 #read in file from sys
-index_file=args.index_file
-sam_file=args.sam_file
+#index_file=args.index_file
+#sam_file=args.sam_file
 merged_temp_file='./temp.merged'
 cluster_seq_file='./temp.merged'
 shared_file='./temp.shared'
@@ -41,15 +40,16 @@ cluster_file='/mnt/EXT/Schloss-data/amanda/Fuso/pangenome/bwa/t0/temp/test.share
 summary_file='/mnt/EXT/Schloss-data/amanda/Fuso/pangenome/bwa/t0/all.t0.SRS013502.mapped.out'
 
 
-index=open(index_file,'r')
-sam=open(sam_file,'r')
+#index=open(args.index_file,'r')
+#sam=open(args.sam_file,'r')
+
 merged_temp=open(merged_temp_file,'wt')
 
 
 #make dictionary of cluster as key and sequence as value from index file
 
 c = {} # dictionary key is cluster and sequence is value
-
+index=open(args.index_file)
 for row in index:
 	row=row.strip().split('\t')
 	cluster = row[1]
@@ -69,7 +69,7 @@ merged_temp.close()
 
 d = {} # dictionary key is sequence and read is value
 
-for row in sam:
+for row in args.sam_file:
 	row=row.strip().split('\t')
 	sequence = row[1]
 	read= row[0]
@@ -77,7 +77,7 @@ for row in sam:
 		d[sequence].append(read)
 	else:
 		d[sequence] = [read]
-sam.close()
+args.sam_file.close()
 
 '''
 for f in d.keys():
