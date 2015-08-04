@@ -69,7 +69,7 @@ merged_temp.close()
 
 d = {} # dictionary key is sequence and read is value
 
-for row in args.sam_file:
+for row in sam:
 	row=row.strip().split('\t')
 	sequence = row[1]
 	read= row[0]
@@ -77,7 +77,7 @@ for row in args.sam_file:
 		d[sequence].append(read)
 	else:
 		d[sequence] = [read]
-args.sam_file.close()
+sam.close()
 
 '''
 for f in d.keys():
