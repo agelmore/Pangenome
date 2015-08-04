@@ -97,8 +97,8 @@ for line in cluster_seq:
 	for column in range(0,len(seqs)):
 		switchseq = seqs[column] #contig to switch
 		if switchseq in d.keys():
-			switchpath = d[switchseq]
-		print('\t'.join(switchpath), end="\t", file=shared)  
+			switchline = d[switchseq]
+		print('\t'.join(switchline), end="\t", file=shared)  
 	print("", end="\n", file=shared)        
 
 cluster_seq.close()
