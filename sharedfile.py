@@ -81,11 +81,6 @@ for row in sam:
 		d[sequence] = [read]
 sam.close()
 
-'''
-for f in d.keys():
-	print(f, ','.join(d[f]), sep="\t", end="\n", file=shared)
-sam.close()
-'''
 
 cluster_seq=open(cluster_seq_file,'r')
 shared=open(shared_file,'wt')
@@ -111,7 +106,6 @@ shared.close()
 cluster_read=open(cluster_file,'r')
 
 summary=open(summary_file,'wt')
-
 
 
 for line in cluster_read:
