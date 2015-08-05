@@ -113,8 +113,8 @@ for line in cluster_read:
 	count = len(line) - 1
 	print(line[0], count, end='\n', file=summary)
 	
-summary_file.close()
-cluster_read.close()
+#summary_file.close()
+#cluster_read.close()
 
 
 
