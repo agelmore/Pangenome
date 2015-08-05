@@ -9,7 +9,7 @@ from collections import Counter
 to sequences using BWA. Sequences are clustered using get_homologues. Final outfile is called summary_file and includes the total number of reads in each cluster from that sample.
 
 '''
-'''
+
 parser = argparse.ArgumentParser(description='Count number of reads per pangenome cluster.')
 parser.add_argument('sam_file', nargs='+', help='index file with reads in first column and reference sequences they map to in the second', type=argparse.FileType('r'))
 parser.add_argument('index_file', nargs='+', help='index file with sequences in first column and clusters in the second', type=argparse.FileType('r'))
@@ -19,19 +19,19 @@ args = parser.parse_args()
 
 
 #read in file from sys
-#index_file=args.index_file
-#sam_file=args.sam_file
+index_file=args.index_file
+sam_file=args.sam_file
 merged_temp_file='./temp.merged'
 cluster_seq_file='./temp.merged'
 shared_file='./temp.shared'
 cluster_file='./temp.shared'
-#summary_file=args.outfile
+summary_file=args.outfile
 
 
 temp.merged has the cluster with a list of sequences in that cluster. temp.shared has the cluster with the reads that mapped to those sequences switched in. 
+
+
 '''
-
-
 #for now hard code the file names
 index_file='/mnt/EXT/Schloss-data/amanda/Fuso/pangenome/bwa/t0/t0.index'
 sam_file='/mnt/EXT/Schloss-data/amanda/Fuso/pangenome/bwa/t0/all.t0.SRS013502.mapped.index'
@@ -40,7 +40,7 @@ cluster_seq_file='/mnt/EXT/Schloss-data/amanda/Fuso/pangenome/bwa/t0/temp/test.m
 shared_file='/mnt/EXT/Schloss-data/amanda/Fuso/pangenome/bwa/t0/temp/test.shared'
 cluster_file='/mnt/EXT/Schloss-data/amanda/Fuso/pangenome/bwa/t0/temp/test.shared'
 summary_file='/mnt/EXT/Schloss-data/amanda/Fuso/pangenome/bwa/t0/all.t0.SRS013502.mapped.out'
-
+'''
 
 index=open(index_file,'r')
 sam=open(sam_file,'r')
