@@ -89,11 +89,11 @@ shared=open(shared_file,'wt') #file to create. Cluster name with list of reads i
 
 
 for line in cluster_seq:
-	switchline=[]
 	line = line.strip().split('\t')
 	print(line[0], '\t', end='', file=shared)
 	seqs = line[1].strip().split(',')
 	for column in range(0,len(seqs)):
+		switchline=[]						#will be a list of reads in gene. Has to be reset each loop
 		switchseq = seqs[column] 			#gene to switch with reads mapping to gene
 		if switchseq in d.keys(): 			#gene must have reads that map to it, else switchline will not have a value and will print no reads for that gene
 			switchline = d[switchseq]
