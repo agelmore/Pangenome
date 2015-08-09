@@ -22,7 +22,6 @@ args = parser.parse_args()
 index_file=sys.argv[1]
 sam_file=sys.argv[2]
 merged_temp_file='./temp.merged'
-cluster_seq_file='./temp.merged'
 shared_file='./temp.shared'
 cluster_file='./temp.shared'
 summary_file=sys.argv[3]
@@ -36,7 +35,7 @@ summary_file=sys.argv[3]
 index_file='/mnt/EXT/Schloss-data/amanda/Fuso/pangenome/bwa/t0/t0.index'
 sam_file='/mnt/EXT/Schloss-data/amanda/Fuso/pangenome/bwa/t0/all.t0.SRS013502.mapped.index'
 merged_temp_file='/mnt/EXT/Schloss-data/amanda/Fuso/pangenome/bwa/t0/temp/test.merged'
-cluster_seq_file='/mnt/EXT/Schloss-data/amanda/Fuso/pangenome/bwa/t0/temp/test.merged'
+merged_temp_file='/mnt/EXT/Schloss-data/amanda/Fuso/pangenome/bwa/t0/temp/test.merged'
 shared_file='/mnt/EXT/Schloss-data/amanda/Fuso/pangenome/bwa/t0/temp/test.shared'
 cluster_file='/mnt/EXT/Schloss-data/amanda/Fuso/pangenome/bwa/t0/temp/test.shared'
 summary_file='/mnt/EXT/Schloss-data/amanda/Fuso/pangenome/bwa/t0/all.t0.SRS013502.mapped.out'
@@ -62,6 +61,7 @@ for row in index:
 		c[cluster] = [seq]
 index.close()
 
+#make a temporary file with cluster name (keys in c) in column 1 and a list of genes in that cluster in column 2. Basically the same as the index file but with only one line per cluster.
 for f in c.keys():
 	print(f, ','.join(c[f]), sep="\t", end="\n", file=merged_temp)
 
@@ -82,21 +82,26 @@ for row in sam:
 sam.close()
 
 
-cluster_seq=open(cluster_seq_file,'r')
-shared=open(shared_file,'wt')
+#Generate file with unique reads mapping to each cluster. Insert reads that mapped to genes in place of gene name in the merged temp file. 
 
+cluster_seq=open(merged_temp_file,'r') #file with cluster name and list of genes in pangenome cluster
+shared=open(shared_file,'wt') #file to create. Cluster name with list of reads in pangenome cluster
 
 switchline=[]
+count=0  									#count the number of genes per cluster to use in final shared file
 for line in cluster_seq:
 	line = line.strip().split('\t')
 	print(line[0], '\t', end='', file=shared)
 	seqs = line[1].strip().split(',')
 	for column in range(0,len(seqs)):
-		switchseq = seqs[column] #contig to switch
-		if switchseq in d.keys():
+		switchseq = seqs[column] 			#gene to switch with reads mapping to gene
+		if switchseq in d.keys(): 			#gene must have reads that map to it, else switchline will not have a value and will print no reads for that gene
 			switchline = d[switchseq]
-		print('\t'.join(switchline), end="\t", file=shared)  
-	print("", end="\n", file=shared)        
+			
+		print('\t'.join(switchline), end="\t", file=shared)
+		count = count+1 						#add each gene to counter whether it has mapped reads or not  
+	print(count, end="\n", file=shared)  #print the number of genes at the end of the line
+	count=0 								#reset counter       
 
 cluster_seq.close()
 shared.close()
@@ -107,11 +112,13 @@ cluster_read=open(cluster_file,'r')
 
 summary=open(summary_file,'wt')
 
-
+print("clustername","readcount","genecount", end='\n', file=summary) #print the header
 for line in cluster_read:
 	line = line.strip().split('\t')
-	count = len(line) - 1
-	print(line[0], count, end='\n', file=summary)
+	length=len(line)
+	count = length - 2  #count the number of reads. minus 2 because cluster name and gene count at the end
+	genecount=line[length-1]
+	print(line[0], count, genecount, end='\n', file=summary)
 	
 #summary_file.close()
 #cluster_read.close()
