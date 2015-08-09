@@ -87,8 +87,9 @@ sam.close()
 cluster_seq=open(merged_temp_file,'r') #file with cluster name and list of genes in pangenome cluster
 shared=open(shared_file,'wt') #file to create. Cluster name with list of reads in pangenome cluster
 
-switchline=[]
+
 for line in cluster_seq:
+	switchline=[]
 	line = line.strip().split('\t')
 	print(line[0], '\t', end='', file=shared)
 	seqs = line[1].strip().split(',')
