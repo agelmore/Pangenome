@@ -113,11 +113,11 @@ summary=open(summary_file,'wt')
 print("clustername","readcount","genecount", end='\n', file=summary) #print the header
 for line in cluster_read:
 	line = line.strip().split('\t')
-	line = filter(None, line) #remove empty items from list. This happens when there are no reads that map to a gene
+	line = filter("", line) #remove empty items from list. This happens when there are no reads that map to a gene
 	length=len(line)
 	count = length - 2  #count the number of reads. minus 2 because cluster name and gene count at the end
 	genecount=line[-1]
-	print(line[0], count, genecount, sep='\t', end='\n', file=summary)
+	print(line[0], count, genecount, line, sep='\t', end='\n', file=summary)
 	
 #summary_file.close()
 #cluster_read.close()
