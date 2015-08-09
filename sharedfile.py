@@ -61,9 +61,9 @@ for row in index:
 		c[cluster] = [seq]
 index.close()
 
-#make a temporary file with cluster name (keys in c) in column 1 and a list of genes in that cluster in column 2. Basically the same as the index file but with only one line per cluster.
+#make a temporary file with cluster name (keys in c) in column 1 and a list of genes in that cluster in column 2. Basically the same as the index file but with only one line per cluster. Include a gene count at the end
 for f in c.keys():
-	print(f, ','.join(c[f]), sep="\t", end="\n", file=merged_temp)
+	print(f, ','.join(c[f]), len(c[f]), sep="\t", end="\n", file=merged_temp)
 
 merged_temp.close()
 
@@ -88,7 +88,6 @@ cluster_seq=open(merged_temp_file,'r') #file with cluster name and list of genes
 shared=open(shared_file,'wt') #file to create. Cluster name with list of reads in pangenome cluster
 
 switchline=[]
-count=0  									#count the number of genes per cluster to use in final shared file
 for line in cluster_seq:
 	line = line.strip().split('\t')
 	print(line[0], '\t', end='', file=shared)
@@ -99,9 +98,7 @@ for line in cluster_seq:
 			switchline = d[switchseq]
 			
 		print('\t'.join(switchline), end="\t", file=shared)
-		count = count+1 						#add each gene to counter whether it has mapped reads or not  
-	print(count, end="\n", file=shared)  #print the number of genes at the end of the line
-	count=0 								#reset counter       
+	print(line[2], end="\n", file=shared)  #print the number of genes at the end of the line (this was already the 3rd column in the file)
 
 cluster_seq.close()
 shared.close()
