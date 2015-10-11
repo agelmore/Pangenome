@@ -55,7 +55,7 @@ index.close()
 
 summary=open(summary_file,'wt')
 
-print("clustername","readcount","genecount", end='\n', file=summary) #print the header
+print("clustername","readcount","genecount", end='\n', sep="\t", file=summary) #print the header
 
 
 for cluster in c.keys():

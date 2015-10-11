@@ -18,3 +18,4 @@ shared_file=sys.argv[2]
 
 list=open(list_file,'r')
 shared=open(shared_file,'wt')
+
