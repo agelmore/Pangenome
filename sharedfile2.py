@@ -26,14 +26,15 @@ sam=open(sam_file,'r')
 #make dictionary of sequence as key and read as value from sam file
 
 d = defaultdict(int) # dictionary key is sequence and value is read count
-l={} #dictionary key is seq and value is seq length
+l = {} #dictionary key is seq and value is seq length
 
 for row in sam:
 	row=row.strip().split('\t')
 	sequence = row[0]
 	length=row[1]
 	d[sequence]+=1
-	if l[sequence]:
+	if sequence in l.keys():
+		pass
 	else:
 		l[sequence]=length
 sam.close()
