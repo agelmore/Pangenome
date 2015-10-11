@@ -66,7 +66,8 @@ for cluster in c.keys():
 			i += (float(d[sequence]) / float(l[sequence]))
 		else:
 			i += 0
-	print(cluster, i, genecount, sep='\t', file=summary)
+	print(cluster, i*100, genecount, sep='\t', file=summary) #multiply i by read length so that this is a per base coverage
+	
 
 
 
