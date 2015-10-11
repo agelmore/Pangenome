@@ -26,12 +26,14 @@ sam=open(sam_file,'r')
 #make dictionary of sequence as key and read as value from sam file
 
 d = defaultdict(int) # dictionary key is sequence and value is read count
+l={} #dictionary key is seq and value is seq length
 
 for row in sam:
 	row=row.strip().split('\t')
 	sequence = row[1]
 	length=row[2]
-	d[sequence]+=(1/length)
+	d[sequence]+=1
+	l[sequence]=length
 sam.close()
 
 #make dictionary of cluster as key and sequence as value from index file
@@ -57,7 +59,7 @@ for cluster in c.keys():
 	genecount=len(c[cluster])
 	i=0
 	for sequence in c[cluster]:
-		i += d[sequence]
+		i += (d[sequence] / l[sequence])
 	print(cluster, i, genecount, sep='\t', file=summary)
 
 
