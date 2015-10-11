@@ -30,8 +30,8 @@ l={} #dictionary key is seq and value is seq length
 
 for row in sam:
 	row=row.strip().split('\t')
-	sequence = row[1]
-	length=row[2]
+	sequence = row[0]
+	length=row[1]
 	d[sequence]+=1
 	l[sequence]=length
 sam.close()
