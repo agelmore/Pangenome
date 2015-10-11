@@ -33,10 +33,10 @@ for row in sam:
 	sequence = row[0]
 	length=row[1]
 	d[sequence]+=1
-	if sequence in l.keys():
+	if sequence in l.keys():   #create a second dictionary with sequence length to use for normalization
 		pass
 	else:
-		l[sequence]=length
+		l[sequence]=float(length)
 sam.close()
 
 #make dictionary of cluster as key and sequence as value from index file
@@ -62,7 +62,10 @@ for cluster in c.keys():
 	genecount=len(c[cluster])
 	i=float(0)
 	for sequence in c[cluster]:
-		i += (d[sequence] / l[sequence])
+		if sequence in d.keys():
+			i += (float(d[sequence]) / float(l[sequence]))
+		else:
+			i += 0
 	print(cluster, i, genecount, sep='\t', file=summary)
 
 
