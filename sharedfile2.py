@@ -33,7 +33,7 @@ for row in sam:
 	sequence = row[0]
 	length=row[1]
 	d[sequence]+=1
-	if (l[sequence] = None):
+	if (l[sequence] == None):
   		l[sequence] = length
 sam.close()
 
