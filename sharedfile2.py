@@ -60,7 +60,7 @@ print("clustername","readcount","genecount", end='\n', file=summary) #print the 
 
 for cluster in c.keys():
 	genecount=len(c[cluster])
-	i=0
+	i=float(0)
 	for sequence in c[cluster]:
 		i += (d[sequence] / l[sequence])
 	print(cluster, i, genecount, sep='\t', file=summary)
