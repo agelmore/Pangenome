@@ -33,7 +33,8 @@ for row in sam:
 	sequence = row[0]
 	length=row[1]
 	d[sequence]+=1
-	l[sequence]=length
+	if (l[sequence] = None):
+  		l[sequence] = length
 sam.close()
 
 #make dictionary of cluster as key and sequence as value from index file
